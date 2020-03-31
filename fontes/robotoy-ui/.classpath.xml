@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-compiler"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-common"/>
+	<classpathentry kind="lib" path="/robotoy-lib/lib/apache/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/robotoy-lib/lib/apache/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/robotoy-lib/lib/jgoodies/jgoodies-common-1.8.0.jar"/>
+	<classpathentry kind="lib" path="/robotoy-lib/lib/jgoodies/jgoodies-looks-2.6.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-integration"/>
+	<classpathentry kind="con" path="org.lejos.nxt.ldt.LEJOS_LIBRARY_CONTAINER/nxt"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_51"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-compiler"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-lejos-robot"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-generic-robot"/>
+	<classpathentry kind="con" path="org.lejos.nxt.ldt.LEJOS_LIBRARY_CONTAINER/nxt"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robotoy-common"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

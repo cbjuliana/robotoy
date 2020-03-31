@@ -1,0 +1,70 @@
+<project default="executeAll">
+
+	<property environment="env" />
+	<property name="workspaceDir" location="${basedir}/.." />
+	<property name="bin" location="bin" />
+	<property name="build" location="build" />
+	<property name="lib" location="../robotoy-lib" />
+	<property name="dist" location="dist" />
+
+	<property name="libDest" location="${build}/robotoy/lib" />
+
+	<target name="executeAll">
+		<antcall target="init" />
+		<antcall target="buildJars" />
+		<antcall target="copyExternalLibs" />
+		<antcall target="copyRobotoyExe" />
+		<antcall target="zip" />
+		<antcall target="clean" />
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${build}/robotoy/gen" />
+	</target>
+	
+	<target name="buildJars">
+		<jar destfile="${libDest}/robotoy-ui.jar">
+			<manifest>
+				<attribute name="Main-Class" value="br.inf.furb.tcc.robotoy.Robotoy" />
+				<attribute name="Class-Path" value=". jgoodies-looks-2.6.0.jar jgoodies-common-1.8.0.jar robotoy-compiler.jar robotoy-configuration.jar" />
+			</manifest>
+			<fileset dir="${workspaceDir}/robotoy-ui/bin" />
+		</jar>
+		<jar destfile="${libDest}/robotoy-compiler.jar">
+			<fileset dir="${workspaceDir}/robotoy-compiler/bin" />
+		</jar>
+		<jar destfile="${libDest}/robotoy-common.jar">
+			<fileset dir="${workspaceDir}/robotoy-common/bin" />
+		</jar>
+		<jar destfile="${libDest}/robotoy-generic-robot.jar">
+			<fileset dir="${workspaceDir}/robotoy-generic-robot/bin" />
+		</jar>
+		<jar destfile="${libDest}/robotoy-integration.jar">
+			<fileset dir="${workspaceDir}/robotoy-integration/bin" />
+		</jar>
+		<jar destfile="${libDest}/robotoy-lejos-robot.jar">
+			<fileset dir="${workspaceDir}/robotoy-lejos-robot/bin" />
+		</jar>
+	</target>
+	
+	<target name="copyExternalLibs">
+		<copy todir="${libDest}" verbose="yes" flatten="yes" failonerror="no">    
+		   <fileset dir="${lib}">    
+		      <include name="**/*.jar" />    
+		   </fileset>    
+		</copy>
+	</target>
+	
+	<target name="copyRobotoyExe">
+		<copy file="${workspaceDir}/robotoy-ui/robotoy.exe" todir="${build}/robotoy" />
+	</target>
+
+	<target name="zip">
+		<zip destfile="${dist}/robotoy.zip" basedir="${build}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}" />
+	</target>
+	
+</project>

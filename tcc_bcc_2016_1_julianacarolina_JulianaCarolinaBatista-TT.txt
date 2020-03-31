@@ -1,0 +1,41 @@
+TUTORIAL PARA EXECUÇÃO DA FERRAMENTA ROBOTOY:
+
+As instruções abaixo dizem respeito a geração de código para a plataforma Arduino.
+Para realizar a geração de código para a plataforma Lego é necessário verificar o tutorial da Maria Gabriela Torrens, que implementou a geração de código para Lego.
+
+
+
+FERRAMENTAS NECESSÁRIAS:
+	
+	1. IDE do Arduino;
+
+	2. Arquivo "arduino-robot-methods.ino". Este arquivo pode ser encontrado dentro da pasta "tcc_bcc_2016_1_julianacarolina_JulianaCarolinaBatista/outros/".
+
+
+
+PARA EXECUTAR A FERRAMENTA ROBOTOY VIA ECLIPSE:
+
+	1. configurar o projeto no eclipse e executar a classe "br.inf.furb.tcc.robotoy.Robotoy".
+
+
+
+PARA EXECUTAR A FERRAMENTA ROBOTOY COMO PRODUTO:
+	
+	1. selecionar todos os projetos que compõem a ferramenta Robotoy no Eclipse e exportar como um .jar executável;
+
+	2. criar uma pasta raiz para a ferramenta e dentro dela criar:
+		1. uma pasta chamada "bin" e mover para dentro dela o .jar do projeto. Exemplo: "Robotoy\bin\robotoy.jar"
+		2. uma pasta chamada "gen" para que sejam salvos os programas traduzidos pela ferramenta. Exemplo "Robotoy\gen". Mover para dentro desta pasta o arquivo "arduino-robot-methods.ino"
+
+	3. executar o .jar do projeto para abrir a ferramenta;
+
+	4. selecionar o "tipo do robô" (Lego ou Arduino) para o qual se deseja gerar código;
+
+	5. na tela de "Configurações" informar as configurações pertinentes ao tipo de robô selecionado.
+
+
+	
+	OBS.: **dentro da pasta "fontes\robotoy-ui\dist" existe uma arquivo compactado com o nome "robotoy-arduino". Dentro dele foi criada a estrutura explicada acima.
+		Dentro deste arquivo compactado também existe uma pasta "exemplos" com dois programas criados na linguagem Robotoy, que podem ser abertos na ferramenta.
+
+

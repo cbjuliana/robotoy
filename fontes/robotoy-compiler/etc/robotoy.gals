@@ -1,0 +1,208 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = LexicalAnalyzer
+ParserName = SyntaticAnalyzer
+SemanticName = SemanticAnalyzer
+Package = br.inf.furb.tcc.robotoy.compiler.analyzer
+ScannerCaseSensitive = false
+ScannerTable = Compact
+Input = Stream
+Parser = RD
+#RegularDefinitions
+digito : [0-9]
+letra : [A-z Á Ã Â À É Ê Í Ó Õ Ô Ú Ç á ã â à é ê í ó õ ô ú ç]
+alfanumerico : {digito} | {letra}
+
+comentario_de_linha : / / ([^\n])*
+comentario_de_bloco : / \* ([^ \* /])* \* /
+
+
+
+
+#Tokens
+// Espaço em branco, tabulação e quebra de linha devem ser ignorados.
+: [\s\t]*
+
+// Comentários devem ser ignorados.
+:! {comentario_de_linha}
+:! {comentario_de_bloco}
+
+// Operadores matemáticos.
+"+"	// Soma.
+"-"	// Subtração.
+"*"	// Multiplicação.
+"/"	// Divisão.
+"%"	// Resto da divisão.
+"("	// Para definir a ordem de execução da operação matemática.
+")"	// Para definir a ordem de execução da operação matemática.
+
+// Operadores lógicos.
+">"	// Maior.
+"<"	// Menor.
+">="	// Maior ou igual.
+"<="	// Menor ou igual.
+"="	// Igual.
+"=/"	// Diferente.
+
+// Atribuição.
+"<-"	// Operador de atribuição de variável.
+
+// Operador de concatenação de literais.
+"."
+
+// Definição de quebra de linha, essa definição é usada pra identificar o término entre um comando e outro.
+quebra_de_linha : (\n)+
+
+// Definição de identificador, numérico, literal.
+identificador : {letra}+ {alfanumerico}*
+numerico : {digito}+ (, {digito}+)?
+literal : \"[^\n\"]*\"
+
+// Palavras reservadas.
+numero = identificador : "número"
+texto = identificador : "texto"
+nao = identificador : "não"
+e = identificador : "e"
+ou = identificador : "ou"
+andar = identificador : "andar"
+frente = identificador : "frente"
+tras = identificador : "trás"
+obstaculo = identificador : "obstáculo"
+emitir = identificador : "emitir"
+som = identificador : "som"
+escrever = identificador : "escrever"
+parar = identificador : "parar"
+roda = identificador : "roda"
+motor = identificador : "motor"
+multiuso = identificador : "multiuso"
+girar = identificador : "girar"
+virar = identificador : "virar"
+esquerda = identificador : "esquerda"
+direita = identificador : "direita"
+identificada = identificador : "identificada"
+cor = identificador : "cor"
+branca = identificador : "branca"
+branco = identificador : "branco"
+preta = identificador : "preta"
+preto = identificador : "preto"
+vermelha = identificador : "vermelha"
+vermelho = identificador : "vermelho"
+amarela = identificador : "amarela"
+amarelo = identificador : "amarelo"
+verde = identificador : "verde"
+azul = identificador : "azul"
+se = identificador : "se"
+senao = identificador : "senão"
+enquanto = identificador : "enquanto"
+rotina = identificador : "rotina"
+fim = identificador : "fim"
+tem = identificador : "tem"
+para = identificador : "para"
+de = identificador : "de"
+do = identificador : "do"
+da = identificador : "da"
+a = identificador : "a"
+#NonTerminals
+<programa>
+<lista_de_comandos>
+<comando>
+<controle_de_fluxo>
+<se>
+<senao>
+<enquanto>
+<definicao_de_variavel_ou_invocacao_de_metodo> 
+<declaracao_obrigatoria>
+<declaracao_nao_obrigatoria>
+<tipo>
+<expressao>
+<aritmetica>
+<soma_subtracao>
+<operacao>
+<multiplicacao_divisao_resto>
+<termo>
+<concatenar_literal>
+<opcoes_de_concatenacao>
+<acao>
+<andar>
+<virar>
+<girar_roda>
+<parar>
+<escrever>
+<emitir_som>
+<frente_ou_tras>
+<esquerda_ou_direita>
+<quantidade_de_vezes>
+<quantidade_de_vezes_obrigatoria>
+<acoes_que_param>
+<condicao>
+<tipo_condicao>
+<condicao_extra>
+<verificar_obstaculo>
+<nao>
+<comparar_numerico_literal>
+<operador_relacional_numerico>
+<cor>
+<lista_de_rotinas>
+<rotina>
+
+#Grammar
+<programa> ::= <lista_de_comandos> <lista_de_rotinas> #46 ;
+
+<lista_de_comandos> ::= î | quebra_de_linha #52 <lista_de_comandos> | <comando>  quebra_de_linha #52 <lista_de_comandos> ;
+<comando> ::= <controle_de_fluxo> | <definicao_de_variavel_ou_invocacao_de_metodo> #3 | #29 <acao> #10 #3 ;
+
+<controle_de_fluxo> ::= <se> | <enquanto> ;
+
+<se> ::= se #19 <condicao> quebra_de_linha #52 #20 <lista_de_comandos> <senao> fim do se #18 ;
+<senao> ::= î | senao #21 quebra_de_linha #52 <lista_de_comandos> ;
+
+<enquanto> ::= enquanto #27 <condicao> quebra_de_linha #52 #20 <lista_de_comandos> fim do enquanto #18 ;
+
+<definicao_de_variavel_ou_invocacao_de_metodo> ::= <tipo> #1 identificador #2 <declaracao_obrigatoria> | identificador #47 <declaracao_nao_obrigatoria> ;
+<declaracao_obrigatoria> ::= "<-" <expressao> ;
+<declaracao_nao_obrigatoria> ::= #48 î | #49 "<-" <expressao> ;
+<tipo> ::= numero | texto | cor ;
+
+<expressao> ::= <aritmetica> ;
+<aritmetica> ::= <operacao> <soma_subtracao> ;
+<soma_subtracao> ::= î | "+" #13 <operacao> <soma_subtracao> | "-" #13 <operacao> <soma_subtracao> ;
+<operacao> ::= <termo> <multiplicacao_divisao_resto> ;
+<multiplicacao_divisao_resto> ::= î | "*" #13 <termo> <multiplicacao_divisao_resto> | "/" #13 <termo> <multiplicacao_divisao_resto> | "%" #13 <termo> <multiplicacao_divisao_resto> ;
+<termo> ::= "+" #11 <termo> | "-" #11 <termo> | identificador #4 <concatenar_literal> | numerico #5 | "(" #9 <aritmetica> ")" #10  | literal #8 <concatenar_literal> | <cor> #6 | cor identificada #7 ;
+<cor> ::= branca | branco | preta | preto | vermelha | vermelho | amarela | amarelo | verde | azul ;
+<concatenar_literal> ::= î | "." #12 <opcoes_de_concatenacao> ;
+<opcoes_de_concatenacao> ::= identificador #4 <concatenar_literal> | "(" #9 <aritmetica> ")" #10 <concatenar_literal> | literal #8 <concatenar_literal> ;
+
+<acao> ::=  <andar> | virar #34 <virar> | <girar_roda> | <parar> | <escrever> | <emitir_som> ;
+
+<andar> ::= andar #33 para <frente_ou_tras> #30 #9 <quantidade_de_vezes> ;
+
+<virar> ::= para a <esquerda_ou_direita> #31 #9 <quantidade_de_vezes> |
+             motor #32 multiuso para a <esquerda_ou_direita> #31 #9 <quantidade_de_vezes_obrigatoria> ;
+
+<girar_roda> ::= girar #36 roda <esquerda_ou_direita> #31 #35 para <frente_ou_tras> #30 #9 ;
+
+<parar> ::= parar #37 de <acoes_que_param> #9 ;
+
+<escrever> ::= escrever #41 #9 #51 <expressao> #43 ;
+
+<emitir_som> ::= emitir som #42 #9 ; 
+
+<frente_ou_tras> ::= frente | tras ;
+<esquerda_ou_direita> ::= esquerda | direita ;
+<quantidade_de_vezes> ::= î | #50 <expressao> #43  ;
+<quantidade_de_vezes_obrigatoria> ::= #50 <expressao> #43 ;
+<acoes_que_param> ::= andar #38 | virar #39 | girar #40 ;
+<condicao> ::= #22 <tipo_condicao> <condicao_extra> ;
+<tipo_condicao> ::= <verificar_obstaculo> | <comparar_numerico_literal> ;
+<condicao_extra> ::= î | e #25 <condicao> | ou #26 <condicao> ;
+<verificar_obstaculo> ::= <nao> tem obstaculo #24 ;
+<nao> ::= î | nao #23 ;
+<comparar_numerico_literal> ::= <expressao> <operador_relacional_numerico> #28 <expressao> ;
+<operador_relacional_numerico> ::= ">" | "<" | ">=" | "<=" | "=" | "=/" ;
+
+<lista_de_rotinas> ::= î | <rotina> <lista_de_rotinas> ;
+<rotina> ::= rotina identificador #44 quebra_de_linha #52 <lista_de_comandos> fim da rotina #45 quebra_de_linha #52 ;
+

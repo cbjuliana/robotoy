@@ -1,0 +1,9 @@
+Ação do botão Executar:
+Precisa alterar a linha de comando nxj.bat para nxj.sh para que seja possível executar o comando de deploy no Linux.
+Verificar comandos na classe Robot (calibrar motor do sensor).
+Criar projeto genérico para abrigar coisas genéricas.
+Não aceita identificador dentro de parênteses como algo válido
+Está aceitando a construção cor valor <- -cor identificada
+Verificar a parte de concatenar literal (permitir cor fora de parênteses), apenas número é obrigado a declarar entre parênteses.
+Parar de girar roda esquerda, parar de girar roda direita, parar de girar roda esquerda e direita, parar de girar roda direita e esquerda.
+robotoy-ui está tendo que referenciar a biblioteca leJOS, arrumar isso.
